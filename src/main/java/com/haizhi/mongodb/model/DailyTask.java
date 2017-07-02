@@ -2,6 +2,7 @@ package com.haizhi.mongodb.model;
 
 import com.haizhi.util.TimeUtil;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +11,7 @@ import java.util.Map;
  * Created by youfeng on 2017/7/2.
  * 每日导入任务模型
  */
+@Document(collection = "upload-import")
 public class DailyTask {
 
     // 当前数据日期 2017-07-01

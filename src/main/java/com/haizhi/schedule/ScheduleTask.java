@@ -133,6 +133,7 @@ public class ScheduleTask {
 
         }
 
+        logger.info("#####扫描文件完成..");
     }
 
 }
