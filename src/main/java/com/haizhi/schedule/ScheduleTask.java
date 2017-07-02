@@ -15,8 +15,6 @@ import org.springframework.stereotype.Component;
 public class ScheduleTask {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final Environment environment;
-
     // 扫描周期
     private int scanPeriod = 10;
 
@@ -28,7 +26,6 @@ public class ScheduleTask {
 
     @Autowired
     public ScheduleTask(Environment environment) {
-        this.environment = environment;
 
         this.scanPeriod = environment.getProperty("check.period", int.class);
         logger.info("扫描周期: {}", this.scanPeriod);
