@@ -3,6 +3,7 @@ package com.haizhi.engine;
 import com.haizhi.mongodb.model.FileDetail;
 import com.haizhi.mongodb.model.FolderDetail;
 import com.haizhi.type.StatusType;
+import com.haizhi.util.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,6 +53,7 @@ public class RunTask implements Callable<Integer> {
 
             //具体导入数据
             fileDetail.setFinish(importInter.importData(dataPath));
+            fileDetail.setUpdateTime(TimeUtil.getCurrentTime());
         }
 
         return StatusType.SUCCESS;

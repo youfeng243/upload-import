@@ -85,6 +85,10 @@ public class ScheduleTask {
             } catch (InterruptedException e) {
                 logger.error("线程池被中断...", e);
             }
+
+            //存储当前批次导入信息
+            dailyTaskService.saveOne(dailyTask);
+
             logger.info("导出数据线程池等待线程运行结束...");
         });
 
