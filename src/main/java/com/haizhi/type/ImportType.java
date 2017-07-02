@@ -7,7 +7,7 @@ package com.haizhi.type;
 public enum ImportType {
 
     // 工商抓取反馈
-    CRAWL_GONGSHANG("gongshang_crawl_report", "com.haizhi.engine.GongShangImport");
+    CRAWL_GONGSHANG("gongshang_crawl_report", "com.haizhi.engine.GongShangServiceImpl");
 
     private String name;
 

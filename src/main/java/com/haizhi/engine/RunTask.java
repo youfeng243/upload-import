@@ -26,19 +26,19 @@ public class RunTask implements Callable<Integer> {
     private FolderDetail folderDetail;
 
     // 引擎接口
-    private ImportInter importInter;
+    private ImportService importService;
 
     public RunTask(String folderPath, FolderDetail folderDetail) {
         this.folderPath = folderPath;
         this.folderDetail = folderDetail;
 
-        importInter = ImportFactory.select(folderDetail.getFolderName());
+        importService = ImportFactory.select(folderDetail.getFolderName());
     }
 
     @Override
     public Integer call() throws Exception {
 
-        if (importInter == null) {
+        if (importService == null) {
             return StatusType.ERROR_INIT_NULL;
         }
 
@@ -52,7 +52,7 @@ public class RunTask implements Callable<Integer> {
             logger.info("当前需要导入的数据路径: {}", dataPath);
 
             //具体导入数据
-            fileDetail.setFinish(importInter.importData(dataPath));
+            fileDetail.setFinish(importService.importData(dataPath));
             fileDetail.setUpdateTime(TimeUtil.getCurrentTime());
         }
 

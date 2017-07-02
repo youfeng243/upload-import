@@ -13,11 +13,11 @@ import java.util.Objects;
 public class ImportFactory {
     private static Logger logger = LoggerFactory.getLogger(ImportFactory.class);
 
-    public static ImportInter select(String type) {
+    public static ImportService select(String type) {
         for (ImportType importType : ImportType.values()) {
             if (Objects.equals(type, importType.getName())) {
                 try {
-                    return (ImportInter) Class.forName(importType.getClazz()).newInstance();
+                    return (ImportService) Class.forName(importType.getClazz()).newInstance();
                 } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
                     logger.error("初始化对象失败: ", e);
                 }
