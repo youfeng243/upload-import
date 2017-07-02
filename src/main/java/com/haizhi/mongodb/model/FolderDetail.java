@@ -1,5 +1,6 @@
 package com.haizhi.mongodb.model;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -13,6 +14,11 @@ public class FolderDetail {
 
     // 文件列表
     private Map<String, FileDetail> fileDetailMap;
+
+    public FolderDetail(String importType) {
+        this.importType = importType;
+        this.fileDetailMap = new HashMap<>();
+    }
 
     public String getImportType() {
         return importType;

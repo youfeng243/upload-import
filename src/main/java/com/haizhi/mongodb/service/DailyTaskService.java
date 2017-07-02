@@ -8,4 +8,6 @@ import com.haizhi.mongodb.model.DailyTask;
  */
 public interface DailyTaskService {
     DailyTask findOne(String date);
+
+    void saveOne(DailyTask dailyTask);
 }

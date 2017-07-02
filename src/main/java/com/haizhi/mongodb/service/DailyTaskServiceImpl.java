@@ -23,4 +23,9 @@ public class DailyTaskServiceImpl implements DailyTaskService {
     public DailyTask findOne(String date) {
         return dailyTaskRepository.findOne(date);
     }
+
+    @Override
+    public void saveOne(DailyTask dailyTask) {
+        dailyTaskRepository.save(dailyTask);
+    }
 }

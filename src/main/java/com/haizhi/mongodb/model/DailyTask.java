@@ -3,6 +3,7 @@ package com.haizhi.mongodb.model;
 import com.haizhi.util.TimeUtil;
 import org.springframework.data.annotation.Id;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -27,6 +28,7 @@ public class DailyTask {
     public DailyTask(String date) {
         this.date = date;
         this.createTime = this.updateTime = TimeUtil.getCurrentTime();
+        this.folderDetailMap = new HashMap<>();
     }
 
     public String getCreateTime() {

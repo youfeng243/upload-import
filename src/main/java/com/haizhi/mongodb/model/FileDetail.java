@@ -1,5 +1,7 @@
 package com.haizhi.mongodb.model;
 
+import com.haizhi.util.TimeUtil;
+
 /**
  * Created by youfeng on 2017/6/30.
  * 基本数据块文件结构信息
@@ -18,6 +20,11 @@ public class FileDetail {
     //文件数据导入时间
     private String updateTime;
 
+    public FileDetail(String fileName) {
+        this.fileName = fileName;
+        this.finish =Boolean.FALSE;
+        this.createTime = this.updateTime = TimeUtil.getCurrentTime();
+    }
 
     public String getUpdateTime() {
         return updateTime;
