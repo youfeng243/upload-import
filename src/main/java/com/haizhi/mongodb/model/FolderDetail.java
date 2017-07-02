@@ -10,29 +10,29 @@ import java.util.Map;
 public class FolderDetail {
 
     // 导入的数据类型，不同的数据类型由不同的导入引擎解析
-    private String importType;
+    private String folderName;
 
     // 文件列表
-    private Map<String, FileDetail> fileDetailMap;
+    private Map<String, FileDetail> fileList;
 
     public FolderDetail(String importType) {
-        this.importType = importType;
-        this.fileDetailMap = new HashMap<>();
+        this.folderName = importType;
+        this.fileList = new HashMap<>();
     }
 
-    public String getImportType() {
-        return importType;
+    public String getFolderName() {
+        return folderName;
     }
 
-    public void setImportType(String importType) {
-        this.importType = importType;
+    public void setFolderName(String folderName) {
+        this.folderName = folderName;
     }
 
-    public Map<String, FileDetail> getFileDetailMap() {
-        return fileDetailMap;
+    public Map<String, FileDetail> getFileList() {
+        return fileList;
     }
 
-    public void setFileDetailMap(Map<String, FileDetail> fileDetailMap) {
-        this.fileDetailMap = fileDetailMap;
+    public void setFileList(Map<String, FileDetail> fileList) {
+        this.fileList = fileList;
     }
 }

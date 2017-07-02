@@ -82,7 +82,7 @@ public class ScheduleTask {
             }
 
             //开始分析每个目录每个文件是否已经被记录
-            Map<String, FolderDetail> folderDetailMap = dailyTask.getFolderDetailMap();
+            Map<String, FolderDetail> folderDetailMap = dailyTask.getFolderList();
             for (ImportType importType : ImportType.values()) {
 
                 String folderName = importType.getName();
@@ -98,7 +98,7 @@ public class ScheduleTask {
 
                 //获得目录详细信息
                 FolderDetail folderDetail = folderDetailMap.computeIfAbsent(folderName, FolderDetail::new);
-                Map<String, FileDetail> fileDetailMap = folderDetail.getFileDetailMap();
+                Map<String, FileDetail> fileDetailMap = folderDetail.getFileList();
 
                 //遍历目录
                 Path importFolderPath = Paths.get(fullImportFolderPath);

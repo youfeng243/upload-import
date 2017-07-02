@@ -19,7 +19,7 @@ public class DailyTask {
     private String date;
 
     // 不同类型数据导入
-    private Map<String, FolderDetail> folderDetailMap;
+    private Map<String, FolderDetail> folderList;
 
     // 任务创建时间
     private String createTime;
@@ -30,7 +30,7 @@ public class DailyTask {
     public DailyTask(String date) {
         this.date = date;
         this.createTime = this.updateTime = TimeUtil.getCurrentTime();
-        this.folderDetailMap = new HashMap<>();
+        this.folderList = new HashMap<>();
     }
 
     public String getCreateTime() {
@@ -57,11 +57,11 @@ public class DailyTask {
         this.date = date;
     }
 
-    public Map<String, FolderDetail> getFolderDetailMap() {
-        return folderDetailMap;
+    public Map<String, FolderDetail> getFolderList() {
+        return folderList;
     }
 
-    public void setFolderDetailMap(Map<String, FolderDetail> folderDetailMap) {
-        this.folderDetailMap = folderDetailMap;
+    public void setFolderList(Map<String, FolderDetail> folderList) {
+        this.folderList = folderList;
     }
 }
