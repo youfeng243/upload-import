@@ -15,8 +15,8 @@ public class FolderDetail {
     // 文件列表
     private Map<String, FileDetail> fileList;
 
-    public FolderDetail(String importType) {
-        this.folderName = importType;
+    public FolderDetail(String folderName) {
+        this.folderName = folderName;
         this.fileList = new HashMap<>();
     }
 

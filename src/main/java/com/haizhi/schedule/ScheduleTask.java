@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -53,10 +54,28 @@ public class ScheduleTask {
         logger.info("扫描基本目录: {}", this.uploadBasePath);
     }
 
+    //导入任务
+    private void importTask(List<DailyTask> dailyTaskList) {
+        logger.info("开始执行导入任务...");
+
+        logger.info("导入任务执行完成...");
+    }
+
     @Scheduled(fixedDelay = 1000 * 60 * 30)
-    public void scanFolder() {
+    public void scanTask() {
+
+        // 扫描目录
+        List<DailyTask> dailyTaskList = scanFolder();
+
+
+        // 执行任务
+        importTask(dailyTaskList);
+    }
+
+    private List<DailyTask> scanFolder() {
         logger.info("#####开始扫描文件..");
 
+        List<DailyTask> dailyTaskList = new ArrayList<>();
         for (int i = 0; i < scanPeriod; i++) {
 
             String date = TimeUtil.getBeforeDate(i);
@@ -131,9 +150,13 @@ public class ScheduleTask {
             // 保存检测状态信息
             dailyTaskService.saveOne(dailyTask);
 
+            //添加待导入目录信息
+            dailyTaskList.add(dailyTask);
         }
 
         logger.info("#####扫描文件完成..");
+
+        return dailyTaskList;
     }
 
 }
