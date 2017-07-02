@@ -7,9 +7,11 @@ package com.haizhi.type;
 public enum ImportType {
 
     // 工商抓取反馈
-    CRAWL_GONGSHANG("gongshang_crawl_report");
+    CRAWL_GONGSHANG("gongshang_crawl_report", "com.haizhi.engine.GongShangImport");
 
     private String name;
+
+    private String clazz;
 
     public String getName() {
         return name;
@@ -19,7 +21,16 @@ public enum ImportType {
         this.name = name;
     }
 
-    ImportType(String name) {
+    public String getClazz() {
+        return clazz;
+    }
+
+    public void setClazz(String clazz) {
+        this.clazz = clazz;
+    }
+
+    ImportType(String name, String clazz) {
+        this.clazz = clazz;
         this.name = name;
     }
 }

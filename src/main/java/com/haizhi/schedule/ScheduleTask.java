@@ -1,5 +1,6 @@
 package com.haizhi.schedule;
 
+import com.haizhi.engine.RunTask;
 import com.haizhi.mongodb.model.DailyTask;
 import com.haizhi.mongodb.model.FileDetail;
 import com.haizhi.mongodb.model.FolderDetail;
@@ -21,6 +22,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -36,6 +40,9 @@ public class ScheduleTask {
 
     //线程数目
     private int threadNum = 10;
+
+    //最大待处理线程数目
+    private static final int MAX_THREAD_POOL = 50;
 
     //上传基本根路径
     private String uploadBasePath;
@@ -57,6 +64,29 @@ public class ScheduleTask {
     //导入任务
     private void importTask(List<DailyTask> dailyTaskList) {
         logger.info("开始执行导入任务...");
+
+        dailyTaskList.forEach(dailyTask -> {
+            Map<String, FolderDetail> folderList = dailyTask.getFolderList();
+
+            //获得当前日期路径
+            String batchPath = uploadBasePath + dailyTask.getDate() + "/";
+
+            // 这里创建线程池
+            ExecutorService threadPool = Executors.newFixedThreadPool(threadNum);
+            for (Map.Entry<String, FolderDetail> entry : folderList.entrySet()) {
+                // 当前导入类型数据文件夹路径
+                String folderPath = batchPath + entry.getKey() + "/";
+                threadPool.submit(new RunTask(folderPath, entry.getValue()));
+            }
+            threadPool.shutdown();
+            logger.info("导出数据线程池加载结束, 等待线程运行结束...");
+            try {
+                threadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.MINUTES);
+            } catch (InterruptedException e) {
+                logger.error("线程池被中断...", e);
+            }
+            logger.info("导出数据线程池等待线程运行结束...");
+        });
 
         logger.info("导入任务执行完成...");
     }
