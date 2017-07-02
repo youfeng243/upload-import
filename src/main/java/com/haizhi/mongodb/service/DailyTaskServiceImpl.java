@@ -2,6 +2,7 @@ package com.haizhi.mongodb.service;
 
 import com.haizhi.mongodb.model.DailyTask;
 import com.haizhi.mongodb.repository.DailyTaskRepository;
+import com.haizhi.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ public class DailyTaskServiceImpl implements DailyTaskService {
 
     @Override
     public void saveOne(DailyTask dailyTask) {
+        dailyTask.setUpdateTime(TimeUtil.getCurrentTime());
         dailyTaskRepository.save(dailyTask);
     }
 }
