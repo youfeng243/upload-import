@@ -72,6 +72,7 @@ public class GongShangServiceImpl implements ImportService {
                     .build();
             try {
                 Response response = client.newCall(request).execute();
+                logger.info("{} {}", company, response.body().string());
             } catch (IOException e) {
                 logger.error("请求服务器失败:", e);
             }
