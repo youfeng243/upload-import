@@ -22,9 +22,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 /**
@@ -65,6 +63,7 @@ public class ScheduleTask {
     private void importTask(List<DailyTask> dailyTaskList) {
         logger.info("开始执行导入任务...");
 
+        List<Future<Integer>> resultList = new ArrayList<>();
         dailyTaskList.forEach(dailyTask -> {
             Map<String, FolderDetail> folderList = dailyTask.getFolderList();
 
@@ -76,7 +75,21 @@ public class ScheduleTask {
             for (Map.Entry<String, FolderDetail> entry : folderList.entrySet()) {
                 // 当前导入类型数据文件夹路径
                 String folderPath = batchPath + entry.getKey() + "/";
-                threadPool.submit(new RunTask(folderPath, entry.getValue()));
+
+                //关注线程结果
+                resultList.add(threadPool.submit(new RunTask(folderPath, entry.getValue())));
+
+                //任务排队太多，则需要先等待堆积的任务完成再继续
+                if (resultList.size() >= MAX_THREAD_POOL) {
+                    resultList.forEach(result -> {
+                        try {
+                            result.get();
+                        } catch (InterruptedException | ExecutionException e) {
+                            logger.error("ERROR", e);
+                        }
+                    });
+                    resultList.clear();
+                }
             }
             threadPool.shutdown();
             logger.info("导出数据线程池加载结束, 等待线程运行结束...");
