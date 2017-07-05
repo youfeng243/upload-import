@@ -14,7 +14,7 @@
         <SMTP name="Mail" subject="upload-import" to="youfeng@haizhi.com"
               from="datamonitor@haizhi.com"
               smtpProtocol="smtp" smtpHost="smtp.weibangong.com" smtpPort="465" bufferSize="50" smtpDebug="false"
-              smtpPassword="test123456" smtpUsername="datamonitor@haizhi.com">
+              smtpPassword="LcoS!WKXmWmFu2Or" smtpUsername="datamonitor@haizhi.com">
             <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
         </SMTP>
 
